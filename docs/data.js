@@ -55,6 +55,10 @@ const beginnerCards = [
     fact: "My tail club could break bones!",
     era: "Late Cretaceous",
     size: "25 feet long",
+    image: "images/ankylosaurus.png",
+    imageAlt: "An armored ankylosaurus with a club tail",
+    hintImage: "images/ankylosaurus.png",
+    hintAlt: "A dinosaur covered in armor",
   },
   {
     clue: "I have a big sail on my back!",
@@ -62,6 +66,10 @@ const beginnerCards = [
     fact: "Spinosaurus loved to swim and ate fish!",
     era: "Late Cretaceous",
     size: "50 feet long",
+    image: "images/spinosaurus.png",
+    imageAlt: "A spinosaurus with a large sail on its back",
+    hintImage: "images/spinosaurus.png",
+    hintAlt: "A dinosaur with a big sail",
   },
   {
     clue: "I have a long tube on my head that makes sounds!",
