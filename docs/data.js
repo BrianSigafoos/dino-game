@@ -88,6 +88,10 @@ const beginnerCards = [
     fact: "Velociraptors were covered in feathers!",
     era: "Late Cretaceous",
     size: "6 feet long",
+    image: "images/velociraptor.png",
+    imageAlt: "A velociraptor with feathers and claws",
+    hintImage: "images/velociraptor.png",
+    hintAlt: "A small fast dinosaur with big claws",
   },
   {
     clue: "I fly in the sky but I'm not a dinosaur!",
@@ -95,6 +99,10 @@ const beginnerCards = [
     fact: "Pterodactyls were flying reptiles!",
     era: "Late Jurassic",
     size: "3 feet wingspan",
+    image: "images/pterodactyl.png",
+    imageAlt: "A pterodactyl flying with wings spread",
+    hintImage: "images/pterodactyl.png",
+    hintAlt: "A flying reptile silhouette",
   },
   {
     clue: "I'm a giant sea reptile with flippers!",

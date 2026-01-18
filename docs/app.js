@@ -11,7 +11,6 @@ let deck = [];
 
 // --- DOM Elements ---
 const cardEl = document.getElementById("card");
-const cardTitle = document.getElementById("card-title");
 const cardClue = document.getElementById("card-clue");
 const cardAnswer = document.getElementById("card-answer");
 const cardFact = document.getElementById("card-fact");
@@ -55,7 +54,6 @@ function buildDeck(cards) {
 
 function updateCard() {
   const card = deck[currentIndex];
-  cardTitle.textContent = currentLevel === "beginner" ? "Guess the Dino!" : "Challenge!";
   cardClue.textContent = card.clue;
   cardAnswer.textContent = card.answer;
   cardFact.textContent = card.fact;
@@ -125,7 +123,7 @@ function nextCard() {
 
 function shuffleDeck() {
   const cards = currentLevel === "beginner" ? beginnerCards : advancedCards;
-  deck = buildDeck([...cards]);
+  deck = shuffle([...cards]);
   currentIndex = 0;
   updateCard();
 }
