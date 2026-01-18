@@ -17,15 +17,18 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <!-- Theme color for browser chrome -->
     <meta name="theme-color" content="#0f172a" />
+    <!-- App icons -->
+    <link rel="icon" type="image/png" href="images/quetzalcoatlus.png" />
+    <link rel="apple-touch-icon" href="images/quetzalcoatlus.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Bungee&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=9" />
-    <script src="data.js?v=9"></script>
-    <script defer src="app.js?v=9"></script>
+    <link rel="stylesheet" href="styles.css?v=10" />
+    <script src="data.js?v=10"></script>
+    <script defer src="app.js?v=10"></script>
   </head>
   <body>
     <div class="bg-grid"></div>
@@ -99,6 +102,15 @@
               <div class="card-badge">Clue</div>
               <h2 id="card-title">Mystery Dino</h2>
               <p id="card-clue"></p>
+              <div
+                class="read-aloud-btn"
+                id="read-aloud-btn"
+                role="button"
+                tabindex="0"
+                aria-label="Read clue aloud"
+              >
+                🔊 Read Aloud
+              </div>
               <div class="card-hint-section" id="card-hint-section" hidden>
                 <div
                   class="card-hint-toggle"

@@ -36,6 +36,7 @@ const advancedBtn = document.getElementById("advanced-btn");
 const exitBtn = document.getElementById("exit-btn");
 const cardArea = document.querySelector(".card-area");
 const levelSelect = document.getElementById("level-select");
+const readAloudBtn = document.getElementById("read-aloud-btn");
 
 // --- Helper Functions ---
 function shuffle(array) {
@@ -115,6 +116,12 @@ function flipCard() {
 }
 
 function nextCard() {
+  // Stop any ongoing speech
+  if ("speechSynthesis" in window && window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    readAloudBtn.classList.remove("speaking");
+    readAloudBtn.textContent = "🔊 Read Aloud";
+  }
   currentIndex = (currentIndex + 1) % deck.length;
   updateCard();
 }
@@ -198,6 +205,12 @@ function handleSwipe() {
 }
 
 function prevCard() {
+  // Stop any ongoing speech
+  if ("speechSynthesis" in window && window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    readAloudBtn.classList.remove("speaking");
+    readAloudBtn.textContent = "🔊 Read Aloud";
+  }
   currentIndex = (currentIndex - 1 + deck.length) % deck.length;
   updateCard();
 }
@@ -247,6 +260,59 @@ cardHintToggle.addEventListener("keydown", (e) => {
     toggleHint(e);
   }
 });
+
+// --- Read Aloud (Text-to-Speech) ---
+function readClueAloud(e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  // Check if speech synthesis is supported
+  if (!("speechSynthesis" in window)) {
+    return;
+  }
+
+  const synth = window.speechSynthesis;
+
+  // If already speaking, stop
+  if (synth.speaking) {
+    synth.cancel();
+    readAloudBtn.classList.remove("speaking");
+    readAloudBtn.textContent = "🔊 Read Aloud";
+    return;
+  }
+
+  const card = deck[currentIndex];
+  const utterance = new SpeechSynthesisUtterance(card.clue);
+
+  // Configure voice settings for kids
+  utterance.rate = 0.85; // Slightly slower for kids
+  utterance.pitch = 1.1; // Slightly higher pitch
+
+  // Update button state
+  readAloudBtn.classList.add("speaking");
+  readAloudBtn.textContent = "🔊 Speaking...";
+
+  utterance.onend = () => {
+    readAloudBtn.classList.remove("speaking");
+    readAloudBtn.textContent = "🔊 Read Aloud";
+  };
+
+  utterance.onerror = () => {
+    readAloudBtn.classList.remove("speaking");
+    readAloudBtn.textContent = "🔊 Read Aloud";
+  };
+
+  synth.speak(utterance);
+}
+
+readAloudBtn.addEventListener("click", readClueAloud);
+readAloudBtn.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    readClueAloud(e);
+  }
+});
+
 nextBtn.addEventListener("click", nextCard);
 shuffleBtn.addEventListener("click", shuffleDeck);
 flipBtn.addEventListener("click", flipCard);

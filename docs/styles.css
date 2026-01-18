@@ -421,6 +421,7 @@ body {
   opacity: 0.8;
 }
 
+.read-aloud-btn,
 .card-hint-toggle {
   border: 0;
   background: var(--pill-bg);
@@ -435,13 +436,21 @@ body {
   align-items: center;
   justify-content: center;
   user-select: none;
+  gap: 0.25rem;
 }
 
+.read-aloud-btn.speaking {
+  background: var(--accent);
+  color: #fff;
+}
+
+.read-aloud-btn:hover,
 .card-hint-toggle:hover {
   background: var(--accent);
   color: #fff;
 }
 
+.read-aloud-btn:focus-visible,
 .card-hint-toggle:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
