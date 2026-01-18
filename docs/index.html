@@ -23,9 +23,9 @@
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Bungee&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=4" />
-    <script src="data.js?v=4"></script>
-    <script defer src="app.js?v=4"></script>
+    <link rel="stylesheet" href="styles.css?v=9" />
+    <script src="data.js?v=9"></script>
+    <script defer src="app.js?v=9"></script>
   </head>
   <body>
     <div class="bg-grid"></div>
@@ -52,14 +52,11 @@
           </button>
         </div>
         <h1>Flip a card. Learn a dino fact.</h1>
-        <p>
-          Quick clues and kid friendly facts that fit on one screen. Tap with
-          one hand.
+        <p class="hero-tagline">
+          Quick clues and kid friendly facts. Tap with one hand.
         </p>
         <div class="hero-meta">
           <span class="pill"><span id="card-count">0</span> cards</span>
-          <span class="pill">Tap the card to flip</span>
-          <span class="pill">Built for mobile</span>
         </div>
         <div class="level-select" id="level-select">
           <p class="level-label">Choose your level:</p>
@@ -102,11 +99,40 @@
               <div class="card-badge">Clue</div>
               <h2 id="card-title">Mystery Dino</h2>
               <p id="card-clue"></p>
+              <div class="card-hint-section" id="card-hint-section" hidden>
+                <div
+                  class="card-hint-toggle"
+                  id="card-hint-toggle"
+                  role="button"
+                  tabindex="0"
+                  aria-expanded="false"
+                >
+                  🔍 Show Hint
+                </div>
+                <div class="card-hint-media" id="card-hint-media" hidden>
+                  <img
+                    class="card-image hint"
+                    id="card-hint-image"
+                    src=""
+                    alt=""
+                    loading="lazy"
+                  />
+                </div>
+              </div>
               <div class="card-hint">Tap to reveal the answer</div>
             </div>
             <div class="card-face card-back">
               <div class="card-badge alt">Answer</div>
               <h2 id="card-answer"></h2>
+              <div class="card-image-wrap" id="card-answer-image-wrap" hidden>
+                <img
+                  class="card-image answer"
+                  id="card-answer-image"
+                  src=""
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
               <p id="card-fact"></p>
               <div class="card-meta">
                 <span id="card-era"></span>

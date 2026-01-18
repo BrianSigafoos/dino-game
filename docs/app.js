@@ -17,6 +17,12 @@ const cardAnswer = document.getElementById("card-answer");
 const cardFact = document.getElementById("card-fact");
 const cardEra = document.getElementById("card-era");
 const cardSize = document.getElementById("card-size");
+const cardHintSection = document.getElementById("card-hint-section");
+const cardHintMedia = document.getElementById("card-hint-media");
+const cardHintImage = document.getElementById("card-hint-image");
+const cardAnswerImageWrap = document.getElementById("card-answer-image-wrap");
+const cardAnswerImage = document.getElementById("card-answer-image");
+const cardHintToggle = document.getElementById("card-hint-toggle");
 const cardIndex = document.getElementById("card-index");
 const cardTotal = document.getElementById("card-total");
 const cardCount = document.getElementById("card-count");
@@ -41,6 +47,12 @@ function shuffle(array) {
   return arr;
 }
 
+function buildDeck(cards) {
+  const withImages = cards.filter((card) => card.image || card.hintImage);
+  const withoutImages = cards.filter((card) => !card.image && !card.hintImage);
+  return [...withImages, ...shuffle(withoutImages)];
+}
+
 function updateCard() {
   const card = deck[currentIndex];
   cardTitle.textContent = currentLevel === "beginner" ? "Guess the Dino!" : "Challenge!";
@@ -49,6 +61,33 @@ function updateCard() {
   cardFact.textContent = card.fact;
   cardEra.textContent = card.era;
   cardSize.textContent = card.size;
+
+  // Handle hint image on front of card
+  if (card.hintImage) {
+    cardHintImage.src = card.hintImage;
+    cardHintImage.alt = card.hintAlt || "Dino hint image";
+    cardHintSection.hidden = false;
+    cardHintMedia.hidden = true;
+    cardHintToggle.setAttribute("aria-expanded", "false");
+    cardHintToggle.textContent = "🔍 Show Hint";
+  } else {
+    cardHintImage.removeAttribute("src");
+    cardHintImage.alt = "";
+    cardHintSection.hidden = true;
+    cardHintMedia.hidden = true;
+    cardHintToggle.setAttribute("aria-expanded", "false");
+  }
+
+  // Handle answer image on back of card
+  if (card.image) {
+    cardAnswerImage.src = card.image;
+    cardAnswerImage.alt = card.imageAlt || `${card.answer} illustration`;
+    cardAnswerImageWrap.hidden = false;
+  } else {
+    cardAnswerImage.removeAttribute("src");
+    cardAnswerImage.alt = "";
+    cardAnswerImageWrap.hidden = true;
+  }
 
   // Update progress
   cardIndex.textContent = currentIndex + 1;
@@ -63,9 +102,9 @@ function updateCard() {
 function selectLevel(level) {
   currentLevel = level;
   const cards = level === "beginner" ? beginnerCards : advancedCards;
-  deck = shuffle([...cards]);
+  deck = buildDeck([...cards]);
   currentIndex = 0;
-  cardCount.textContent = cards.length;
+  if (cardCount) cardCount.textContent = cards.length;
   updateCard();
   enterFullscreen();
 }
@@ -81,7 +120,8 @@ function nextCard() {
 }
 
 function shuffleDeck() {
-  deck = shuffle(deck);
+  const cards = currentLevel === "beginner" ? beginnerCards : advancedCards;
+  deck = buildDeck([...cards]);
   currentIndex = 0;
   updateCard();
 }
@@ -182,7 +222,31 @@ cardArea.addEventListener(
 );
 
 // --- Event Listeners ---
-cardEl.addEventListener("click", flipCard);
+cardEl.addEventListener("click", (e) => {
+  // Don't flip card when clicking hint toggle
+  if (e.target.closest(".card-hint-toggle")) {
+    return;
+  }
+  flipCard();
+});
+
+function toggleHint(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  const isExpanded = cardHintToggle.getAttribute("aria-expanded") === "true";
+  const nextState = !isExpanded;
+  cardHintToggle.setAttribute("aria-expanded", String(nextState));
+  cardHintMedia.hidden = !nextState;
+  cardHintToggle.textContent = nextState ? "🔍 Hide Hint" : "🔍 Show Hint";
+}
+
+cardHintToggle.addEventListener("click", toggleHint);
+cardHintToggle.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    toggleHint(e);
+  }
+});
 nextBtn.addEventListener("click", nextCard);
 shuffleBtn.addEventListener("click", shuffleDeck);
 flipBtn.addEventListener("click", flipCard);
@@ -219,8 +283,8 @@ document.addEventListener("keydown", (e) => {
 // --- Initialize ---
 function init() {
   // Default to beginner cards for display
-  deck = shuffle([...beginnerCards]);
-  cardCount.textContent = beginnerCards.length;
+  deck = buildDeck([...beginnerCards]);
+  if (cardCount) cardCount.textContent = beginnerCards.length;
   updateCard();
   initTheme();
 }
