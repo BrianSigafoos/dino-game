@@ -18,7 +18,6 @@ const cardFact = document.getElementById("card-fact");
 const cardEra = document.getElementById("card-era");
 const cardSize = document.getElementById("card-size");
 const cardHintSection = document.getElementById("card-hint-section");
-const cardHintMedia = document.getElementById("card-hint-media");
 const cardHintImage = document.getElementById("card-hint-image");
 const cardAnswerImageWrap = document.getElementById("card-answer-image-wrap");
 const cardAnswerImage = document.getElementById("card-answer-image");
@@ -67,15 +66,14 @@ function updateCard() {
   if (card.hintImage) {
     cardHintImage.src = card.hintImage;
     cardHintImage.alt = card.hintAlt || "Dino hint image";
-    cardHintSection.hidden = false;
-    cardHintMedia.hidden = true;
+    cardHintToggle.hidden = false;
+    cardHintSection.hidden = true;
     cardHintToggle.setAttribute("aria-expanded", "false");
-    cardHintToggle.textContent = "🔍 Show Hint";
   } else {
     cardHintImage.removeAttribute("src");
     cardHintImage.alt = "";
+    cardHintToggle.hidden = true;
     cardHintSection.hidden = true;
-    cardHintMedia.hidden = true;
     cardHintToggle.setAttribute("aria-expanded", "false");
   }
 
@@ -120,7 +118,6 @@ function nextCard() {
   if ("speechSynthesis" in window && window.speechSynthesis.speaking) {
     window.speechSynthesis.cancel();
     readAloudBtn.classList.remove("speaking");
-    readAloudBtn.textContent = "🔊 Read Aloud";
   }
   currentIndex = (currentIndex + 1) % deck.length;
   updateCard();
@@ -209,7 +206,6 @@ function prevCard() {
   if ("speechSynthesis" in window && window.speechSynthesis.speaking) {
     window.speechSynthesis.cancel();
     readAloudBtn.classList.remove("speaking");
-    readAloudBtn.textContent = "🔊 Read Aloud";
   }
   currentIndex = (currentIndex - 1 + deck.length) % deck.length;
   updateCard();
@@ -249,8 +245,7 @@ function toggleHint(e) {
   const isExpanded = cardHintToggle.getAttribute("aria-expanded") === "true";
   const nextState = !isExpanded;
   cardHintToggle.setAttribute("aria-expanded", String(nextState));
-  cardHintMedia.hidden = !nextState;
-  cardHintToggle.textContent = nextState ? "🔍 Hide Hint" : "🔍 Show Hint";
+  cardHintSection.hidden = !nextState;
 }
 
 cardHintToggle.addEventListener("click", toggleHint);
@@ -277,7 +272,6 @@ function readClueAloud(e) {
   if (synth.speaking) {
     synth.cancel();
     readAloudBtn.classList.remove("speaking");
-    readAloudBtn.textContent = "🔊 Read Aloud";
     return;
   }
 
@@ -290,16 +284,13 @@ function readClueAloud(e) {
 
   // Update button state
   readAloudBtn.classList.add("speaking");
-  readAloudBtn.textContent = "🔊 Speaking...";
 
   utterance.onend = () => {
     readAloudBtn.classList.remove("speaking");
-    readAloudBtn.textContent = "🔊 Read Aloud";
   };
 
   utterance.onerror = () => {
     readAloudBtn.classList.remove("speaking");
-    readAloudBtn.textContent = "🔊 Read Aloud";
   };
 
   synth.speak(utterance);

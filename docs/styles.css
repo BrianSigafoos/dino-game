@@ -5,50 +5,51 @@
 
 /* ---------- Variables & Theme ---------- */
 :root {
-  /* Colors - Light Mode */
-  --bg: #f0f7ff;
-  --bg-card: #fff;
-  --bg-card-back: #22c55e;
-  --text: #1e293b;
-  --text-muted: #64748b;
+  /* Colors - Light Mode (Dino Green Theme) */
+  --bg: #f5f7f2;
+  --bg-card: #ffffff;
+  --bg-card-back: #2d8a4e;
+  --text: #1a3326;
+  --text-muted: #5a7a66;
   --text-card-back: #fff;
-  --accent: #f59e0b;
-  --accent-hover: #d97706;
-  --border: #e2e8f0;
+  --accent: #ff6b35;
+  --accent-hover: #e85a2a;
+  --border: #d4e5d9;
   --shadow: rgba(0, 0, 0, 0.1);
   --shadow-lg: rgba(0, 0, 0, 0.15);
-  --blob-one: rgba(245, 158, 11, 0.15);
-  --blob-two: rgba(34, 197, 94, 0.12);
+  --blob-one: rgba(255, 107, 53, 0.12);
+  --blob-two: rgba(45, 138, 78, 0.1);
   --grid-color: rgba(0, 0, 0, 0.03);
-  --progress-bg: #e2e8f0;
-  --progress-fill: #f59e0b;
+  --progress-bg: #d4e5d9;
+  --progress-fill: #2d8a4e;
   --btn-secondary-bg: #fff;
-  --btn-secondary-text: #1e293b;
-  --pill-bg: rgba(245, 158, 11, 0.1);
-  --pill-text: #d97706;
+  --btn-secondary-text: #1a3326;
+  --pill-bg: rgba(45, 138, 78, 0.12);
+  --pill-text: #2d8a4e;
 }
 
 [data-theme="dark"] {
-  --bg: #0f172a;
-  --bg-card: #1e293b;
-  --bg-card-back: #16a34a;
-  --text: #f1f5f9;
-  --text-muted: #94a3b8;
-  --text-card-back: #fff;
-  --accent: #fbbf24;
-  --accent-hover: #f59e0b;
-  --border: #334155;
-  --shadow: rgba(0, 0, 0, 0.3);
-  --shadow-lg: rgba(0, 0, 0, 0.4);
-  --blob-one: rgba(245, 158, 11, 0.1);
-  --blob-two: rgba(34, 197, 94, 0.08);
+  /* Colors - Dark Mode (Jungle Night) */
+  --bg: #0d1f15;
+  --bg-card: #162b1e;
+  --bg-card-back: #22c55e;
+  --text: #e8f5ec;
+  --text-muted: #8fb89e;
+  --text-card-back: #0d1f15;
+  --accent: #ff8c5a;
+  --accent-hover: #ff6b35;
+  --border: #2a4a36;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --shadow-lg: rgba(0, 0, 0, 0.5);
+  --blob-one: rgba(255, 140, 90, 0.08);
+  --blob-two: rgba(34, 197, 94, 0.06);
   --grid-color: rgba(255, 255, 255, 0.02);
-  --progress-bg: #334155;
-  --progress-fill: #fbbf24;
-  --btn-secondary-bg: #1e293b;
-  --btn-secondary-text: #f1f5f9;
-  --pill-bg: rgba(251, 191, 36, 0.15);
-  --pill-text: #fbbf24;
+  --progress-bg: #2a4a36;
+  --progress-fill: #22c55e;
+  --btn-secondary-bg: #162b1e;
+  --btn-secondary-text: #e8f5ec;
+  --pill-bg: rgba(34, 197, 94, 0.15);
+  --pill-text: #22c55e;
 }
 
 /* ---------- Reset & Base ---------- */
@@ -421,37 +422,58 @@ body {
   opacity: 0.8;
 }
 
-.read-aloud-btn,
-.card-hint-toggle {
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 0.75rem 0;
+}
+
+.icon-btn {
+  width: 3rem;
+  height: 3rem;
   border: 0;
   background: var(--pill-bg);
-  color: var(--pill-text);
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
+  border-radius: 50%;
   cursor: pointer;
-  margin-bottom: 0.5rem;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
-  gap: 0.25rem;
+  font-size: 1.5rem;
+  transition:
+    transform 0.15s,
+    background 0.15s;
 }
 
-.read-aloud-btn.speaking {
+.icon-btn[hidden] {
+  display: none;
+}
+
+.icon-btn:active {
+  transform: scale(0.9);
+}
+
+.icon-btn.speaking {
   background: var(--accent);
-  color: #fff;
+  animation: pulse 1s ease-in-out infinite;
 }
 
-.read-aloud-btn:hover,
-.card-hint-toggle:hover {
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.icon-btn:hover {
   background: var(--accent);
-  color: #fff;
 }
 
-.read-aloud-btn:focus-visible,
-.card-hint-toggle:focus-visible {
+.icon-btn:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
