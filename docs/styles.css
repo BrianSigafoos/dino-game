@@ -539,6 +539,110 @@ body {
   }
 }
 
+/* ---------- Play Button ---------- */
+.play-btn {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+  padding: 0.75rem 2rem;
+}
+
+/* ---------- Fullscreen Mode ---------- */
+.exit-btn {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 1.25rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--shadow);
+  transition: transform 0.15s ease;
+}
+
+.exit-btn:hover {
+  transform: scale(1.1);
+}
+
+.swipe-hint {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.swipe-arrow {
+  opacity: 0.7;
+}
+
+/* Fullscreen active state */
+body.fullscreen {
+  overflow: hidden;
+}
+
+body.fullscreen .hero,
+body.fullscreen .footer {
+  display: none;
+}
+
+body.fullscreen .page {
+  max-width: 100%;
+  padding: 0;
+  height: 100dvh;
+}
+
+body.fullscreen .game {
+  height: 100dvh;
+  padding: 1rem;
+  justify-content: center;
+  gap: 1rem;
+}
+
+body.fullscreen .exit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.fullscreen .swipe-hint {
+  display: flex;
+}
+
+body.fullscreen .card-area {
+  flex: 1;
+  min-height: 0;
+  max-height: calc(100dvh - 180px);
+}
+
+body.fullscreen .card {
+  max-width: 420px;
+  max-height: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+body.fullscreen .controls {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+body.fullscreen .helper {
+  display: none;
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,

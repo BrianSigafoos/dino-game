@@ -187,6 +187,9 @@ const nextBtn = document.getElementById("next-btn");
 const shuffleBtn = document.getElementById("shuffle-btn");
 const flipBtn = document.getElementById("flip-btn");
 const themeToggle = document.getElementById("theme-toggle");
+const playBtn = document.getElementById("play-btn");
+const exitBtn = document.getElementById("exit-btn");
+const cardArea = document.querySelector(".card-area");
 
 // --- Helper Functions ---
 function shuffle(array) {
@@ -267,12 +270,93 @@ window
     }
   });
 
+// --- Fullscreen Mode ---
+function enterFullscreen() {
+  document.body.classList.add("fullscreen");
+  // Try native fullscreen API on mobile
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else if (document.documentElement.webkitRequestFullscreen) {
+    document.documentElement.webkitRequestFullscreen();
+  }
+}
+
+function exitFullscreen() {
+  document.body.classList.remove("fullscreen");
+  if (document.exitFullscreen) {
+    document.exitFullscreen().catch(() => {});
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
+
+// Listen for native fullscreen exit (e.g., pressing Escape)
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) {
+    document.body.classList.remove("fullscreen");
+  }
+});
+document.addEventListener("webkitfullscreenchange", () => {
+  if (!document.webkitFullscreenElement) {
+    document.body.classList.remove("fullscreen");
+  }
+});
+
+// --- Swipe Gestures ---
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+function handleSwipe() {
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+  const minSwipeDistance = 50;
+
+  // Only handle horizontal swipes (ignore vertical scrolling)
+  if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+    if (deltaX < 0) {
+      // Swipe left -> next card
+      nextCard();
+    } else {
+      // Swipe right -> previous card
+      prevCard();
+    }
+  }
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + deck.length) % deck.length;
+  updateCard();
+}
+
+cardArea.addEventListener(
+  "touchstart",
+  (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  },
+  { passive: true }
+);
+
+cardArea.addEventListener(
+  "touchend",
+  (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+  },
+  { passive: true }
+);
+
 // --- Event Listeners ---
 cardEl.addEventListener("click", flipCard);
 nextBtn.addEventListener("click", nextCard);
 shuffleBtn.addEventListener("click", shuffleDeck);
 flipBtn.addEventListener("click", flipCard);
 themeToggle.addEventListener("click", toggleTheme);
+playBtn.addEventListener("click", enterFullscreen);
+exitBtn.addEventListener("click", exitFullscreen);
 
 // Keyboard support
 document.addEventListener("keydown", (e) => {
@@ -286,14 +370,16 @@ document.addEventListener("keydown", (e) => {
     nextCard();
   }
   if (e.key === "ArrowLeft" || e.key === "p") {
-    currentIndex = (currentIndex - 1 + deck.length) % deck.length;
-    updateCard();
+    prevCard();
   }
   if (e.key === "f") {
     flipCard();
   }
   if (e.key === "s") {
     shuffleDeck();
+  }
+  if (e.key === "Escape") {
+    exitFullscreen();
   }
 });
 

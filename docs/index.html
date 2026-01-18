@@ -51,9 +51,25 @@
           <span class="pill">Tap the card to flip</span>
           <span class="pill">Built for mobile</span>
         </div>
+        <button class="btn primary play-btn" id="play-btn" type="button">
+          Play Fullscreen
+        </button>
       </header>
 
       <main class="game">
+        <button
+          class="exit-btn"
+          id="exit-btn"
+          type="button"
+          aria-label="Exit fullscreen"
+        >
+          ✕
+        </button>
+        <div class="swipe-hint" id="swipe-hint">
+          <span class="swipe-arrow left">←</span>
+          <span class="swipe-text">Swipe or tap</span>
+          <span class="swipe-arrow right">→</span>
+        </div>
         <section class="card-area" aria-live="polite">
           <button class="card" id="card" type="button" aria-pressed="false">
             <div class="card-face card-front">
