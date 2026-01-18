@@ -2,20 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>Dino Flip Facts</title>
     <meta
       name="description"
       content="Flip through kid friendly dinosaur facts in a fast flash card game."
     />
+    <!-- iOS Safari improvements -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Theme color for browser chrome -->
+    <meta name="theme-color" content="#0f172a" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Bungee&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="app.js"></script>
+    <link rel="stylesheet" href="styles.css?v=2" />
+    <script defer src="app.js?v=2"></script>
   </head>
   <body>
     <div class="bg-grid"></div>
@@ -51,9 +60,25 @@
           <span class="pill">Tap the card to flip</span>
           <span class="pill">Built for mobile</span>
         </div>
-        <button class="btn primary play-btn" id="play-btn" type="button">
-          Play Fullscreen
-        </button>
+        <div class="level-select" id="level-select">
+          <p class="level-label">Choose your level:</p>
+          <div class="level-buttons">
+            <button
+              class="btn primary level-btn"
+              id="beginner-btn"
+              type="button"
+            >
+              Beginner
+            </button>
+            <button
+              class="btn primary level-btn"
+              id="advanced-btn"
+              type="button"
+            >
+              Advanced
+            </button>
+          </div>
+        </div>
       </header>
 
       <main class="game">

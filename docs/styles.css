@@ -539,11 +539,36 @@ body {
   }
 }
 
-/* ---------- Play Button ---------- */
-.play-btn {
-  margin-top: 1.25rem;
+/* ---------- Level Selection ---------- */
+.level-select {
+  margin-top: 1.5rem;
+}
+
+.level-label {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.level-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.level-btn {
   font-size: 1.1rem;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 1.5rem;
+  min-width: 140px;
+}
+
+#advanced-btn {
+  background: var(--bg-card-back);
+}
+
+#advanced-btn:hover {
+  background: #16a34a;
 }
 
 /* ---------- Fullscreen Mode ---------- */
@@ -593,22 +618,35 @@ body {
 /* Fullscreen active state */
 body.fullscreen {
   overflow: hidden;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body.fullscreen .hero,
 body.fullscreen .footer {
+  display: none !important;
+}
+
+body.fullscreen .bg-grid,
+body.fullscreen .bg-blob {
   display: none;
 }
 
 body.fullscreen .page {
   max-width: 100%;
   padding: 0;
+  padding-top: env(safe-area-inset-top, 0);
   height: 100dvh;
+  height: 100vh; /* Fallback */
 }
 
 body.fullscreen .game {
-  height: 100dvh;
+  height: 100%;
   padding: 1rem;
+  padding-top: calc(env(safe-area-inset-top, 0) + 3.5rem);
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
   justify-content: center;
   gap: 1rem;
 }
@@ -617,26 +655,31 @@ body.fullscreen .exit-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  top: calc(env(safe-area-inset-top, 0) + 0.75rem);
+  right: calc(env(safe-area-inset-right, 0) + 0.75rem);
 }
 
 body.fullscreen .swipe-hint {
   display: flex;
+  top: calc(env(safe-area-inset-top, 0) + 0.75rem);
 }
 
 body.fullscreen .card-area {
   flex: 1;
   min-height: 0;
-  max-height: calc(100dvh - 180px);
+  max-height: calc(100dvh - 200px);
+  max-height: calc(100vh - 200px); /* Fallback */
 }
 
 body.fullscreen .card {
-  max-width: 420px;
+  max-width: min(420px, 90vw);
   max-height: 100%;
   aspect-ratio: 3 / 4;
 }
 
 body.fullscreen .controls {
-  padding-bottom: env(safe-area-inset-bottom, 1rem);
+  padding-bottom: env(safe-area-inset-bottom, 0.5rem);
+  flex-shrink: 0;
 }
 
 body.fullscreen .helper {
