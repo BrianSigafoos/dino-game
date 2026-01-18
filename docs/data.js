@@ -77,6 +77,10 @@ const beginnerCards = [
     fact: "My head crest worked like a trumpet!",
     era: "Late Cretaceous",
     size: "31 feet long",
+    image: "images/parasaurolophus.png",
+    imageAlt: "A parasaurolophus with a long head crest",
+    hintImage: "images/parasaurolophus.png",
+    hintAlt: "A dinosaur with a tube on its head",
   },
   {
     clue: "I'm small and fast with a big claw on each foot!",
