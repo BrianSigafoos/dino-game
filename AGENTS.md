@@ -3,7 +3,7 @@
 ## Project Overview
 
 Dino Game is a static one page flash card site for kids that serves dinosaur
-facts from `docs/app.js` and ships on GitHub Pages.
+facts from `docs/data.js` and ships on GitHub Pages.
 
 ## Development Commands
 
@@ -22,4 +22,4 @@ format code.
 - Keep the site static and dependency free.
 - Keep the card copy short, kid friendly, and mobile first.
 - Preserve the dark mode toggle behavior (system default, user override).
-- Store flash card data in `docs/app.js`.
+- Store flash card data in `docs/data.js` (app logic in `docs/app.js`).
