@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dino Flip Facts</title>
+    <meta
+      name="description"
+      content="Flip through kid friendly dinosaur facts in a fast flash card game."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Bungee&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+    <div class="bg-blob blob-one"></div>
+    <div class="bg-blob blob-two"></div>
+
+    <div class="page">
+      <header class="hero">
+        <div class="hero-top">
+          <div class="logo">
+            <span class="logo-mark">D</span>
+            <span class="logo-text">Dino Flip Facts</span>
+          </div>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-pressed="false"
+          >
+            <span class="theme-label">Dark mode</span>
+            <span class="theme-track">
+              <span class="theme-thumb"></span>
+            </span>
+          </button>
+        </div>
+        <h1>Flip a card. Learn a dino fact.</h1>
+        <p>
+          Quick clues and kid friendly facts that fit on one screen. Tap with
+          one hand.
+        </p>
+        <div class="hero-meta">
+          <span class="pill"><span id="card-count">0</span> cards</span>
+          <span class="pill">Tap the card to flip</span>
+          <span class="pill">Built for mobile</span>
+        </div>
+      </header>
+
+      <main class="game">
+        <section class="card-area" aria-live="polite">
+          <button class="card" id="card" type="button" aria-pressed="false">
+            <div class="card-face card-front">
+              <div class="card-badge">Clue</div>
+              <h2 id="card-title">Mystery Dino</h2>
+              <p id="card-clue"></p>
+              <div class="card-hint">Tap to reveal the answer</div>
+            </div>
+            <div class="card-face card-back">
+              <div class="card-badge alt">Answer</div>
+              <h2 id="card-answer"></h2>
+              <p id="card-fact"></p>
+              <div class="card-meta">
+                <span id="card-era"></span>
+                <span id="card-size"></span>
+              </div>
+            </div>
+          </button>
+        </section>
+
+        <section class="controls">
+          <div class="progress">
+            <div class="progress-text">
+              Card <span id="card-index">1</span> of
+              <span id="card-total">1</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn secondary" id="shuffle-btn" type="button">
+              Shuffle
+            </button>
+            <button class="btn secondary" id="flip-btn" type="button">
+              Flip
+            </button>
+            <button class="btn primary" id="next-btn" type="button">
+              Next card
+            </button>
+          </div>
+          <div class="helper" id="helper-text">
+            Tip: Tap the card to flip back and forth.
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-links">
+          <a href="https://briansigafoos.com" target="_blank" rel="noreferrer">
+            briansigafoos.com
+          </a>
+          <a
+            href="https://github.com/BrianSigafoos/dino-game"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+          <a href="https://tools.bfoos.net" target="_blank" rel="noreferrer">
+            tools.bfoos.net
+          </a>
+        </div>
+        <span class="footer-note">Built for tiny paleontologists.</span>
+      </footer>
+    </div>
+  </body>
+</html>
